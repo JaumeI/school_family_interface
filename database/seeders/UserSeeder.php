@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Permission;
+use App\Models\Student;
 use App\Models\User;
+use App\Models\Group;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -36,8 +38,7 @@ class UserSeeder extends Seeder
         $admin->permissions()->attach($admin_permissions);
 
         //If this is a demo, we create some example users
-        echo env('APP_DEMO');
-        if(strtolower(env('APP_DEMO', 'true'))==1 ){
+        if(strtolower(env('APP_DEMO', 'true'))==true){
             //Create demo tutor users
             $tutor1 = User::create([
                 'name' =>  'tutor1',
@@ -72,7 +73,7 @@ class UserSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ]);
 
-            //Family permissions
+            //Permissions
             $permissions = array();
             $permissions[] = Permission::where('name', 'see_images')->first()->id;
             $permissions[] = Permission::where('name', 'start_message_thread')->first()->id;
@@ -85,6 +86,18 @@ class UserSeeder extends Seeder
             $permissions[] = Permission::where('name', 'upload_images')->first()->id;
             $tutor1->permissions()->attach($permissions);
             $tutor2->permissions()->attach($permissions);
+
+            //Groups
+            $tutor1->groups()->attach(Group::where('name','1er A 21/22')->first()->id);
+            $tutor2->groups()->attach(Group::where('name','2on A 21/22')->first()->id);
+
+            //Students: Family1 has two students, Family2 has one
+            $f1_students = array();
+            $f1_students[] = Student::where('name','student1')->first()->id;
+            $f1_students[] = Student::where('name','student2')->first()->id;
+
+            $family1->students()->attach($f1_students);
+            $family2->students()->attach(Student::where('name','student3')->first()->id);
 
         }
 
