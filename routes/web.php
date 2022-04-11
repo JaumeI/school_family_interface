@@ -18,8 +18,14 @@ use Illuminate\Support\Facades\Route;
 });*/
 Route::redirect('/', '/login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
+    Route::get('/users', \App\Http\Controllers\DashboardController::class)->name('users');
+    Route::get('/students', \App\Http\Controllers\DashboardController::class)->name('students');
+    Route::get('/groups', \App\Http\Controllers\DashboardController::class)->name('groups');
+
+    // TODO: Resta de rutes que estan protegides per autenticació
+
+});
 
 require __DIR__.'/auth.php';

@@ -90,4 +90,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Image::class);
     }
+
+    public function hasPermissionTo(string $permission): bool
+    {
+        $this->loadMissing('permissions');
+
+        return $this->permissions->firstWhere('name', $permission) !== null;
+    }
 }
