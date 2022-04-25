@@ -23,6 +23,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users', \App\Http\Controllers\DashboardController::class)->name('users');
     Route::get('/students', \App\Http\Controllers\DashboardController::class)->name('students');
     Route::get('/groups', \App\Http\Controllers\DashboardController::class)->name('groups');
+    Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
+    Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
+    Route::get('/start_thread', \App\Http\Controllers\DashboardController::class)->name('start_thread');
+    Route::get('/messages', \App\Http\Controllers\DashboardController::class)->name('messages');
 
     // TODO: Resta de rutes que estan protegides per autenticació
 

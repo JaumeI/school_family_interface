@@ -25,10 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \View::composer('layouts.app', function ($view) {
-            $view->with('sidebar', auth()->user()->permissions()
-                ->where('menu_entry', true)
-                ->orderBy('menu_name')
-                ->get()
+            $view->with('sidebar', auth()->user()->permissions()->get()
             );
         });
     }

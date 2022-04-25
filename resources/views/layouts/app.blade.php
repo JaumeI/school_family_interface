@@ -13,33 +13,23 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+
         <style>
-            .active { color: red; }
+            .active {font-weight: bold;}
         </style>
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased flex">
+        <div class="min-h-screen bg-gray-300">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header ?? '' }}
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                <ul>
-                    <x-sidebar.item route="logout">Sortir</x-sidebar.item>
-                    <x-sidebar.item-protected route="users" permission="manage_users">Usuaris</x-sidebar.item-protected>
-                    <x-sidebar.item-protected route="students" permission="manage_students">Alumnes</x-sidebar.item-protected>
-                    <x-sidebar.item-protected route="groups" permission="manage_groups">Grups</x-sidebar.item-protected>
-                </ul>
-                {{ $slot }}
-            </main>
         </div>
+            <!-- Page Content -->
+        <div class="w-2/3 bg-gray-300">
+        {{ $slot }}
+        </div>
+
+
     </body>
 </html>

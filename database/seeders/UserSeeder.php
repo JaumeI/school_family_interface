@@ -76,8 +76,8 @@ class UserSeeder extends Seeder
             //Permissions
             $permissions = array();
             $permissions[] = Permission::where('name', 'see_images')->first()->id;
-            $permissions[] = Permission::where('name', 'start_message_thread')->first()->id;
-            $permissions[] = Permission::where('name', 'send_message')->first()->id;
+            $permissions[] = Permission::where('name', 'start_thread')->first()->id;
+            $permissions[] = Permission::where('name', 'messages')->first()->id;
             $family1->permissions()->attach($permissions);
             $family2->permissions()->attach($permissions);
 

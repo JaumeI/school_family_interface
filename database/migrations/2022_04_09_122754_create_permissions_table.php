@@ -16,8 +16,6 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->boolean('menu_entry')->default(false);
-            $table->string('menu_name')->default('');
         });
     }
 
