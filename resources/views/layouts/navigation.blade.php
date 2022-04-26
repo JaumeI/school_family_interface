@@ -3,7 +3,6 @@
     <aside class="w-64" aria-label="Sidebar">
         <div class="overflow-y-auto pb-80 py-4 px-3 bg-blue-200 rounded shadow-md shadow-gray-300">
             <ul class="space-y-2">
-
                 <img class="object-scale-down w-8 float-left" src="{{asset('storage/images/logotrans.png')}}" alt="SFI"/>
                 <p>School Family Interface</p>
 
@@ -13,6 +12,7 @@
 
             </ul>
             <ul class="pt-4 mt-4 space-y-2 border-t border-gray-600">
+                <x-sidebar.item route="dashboard">Inici</x-sidebar.item>
                 <x-sidebar.item-protected route="users" permission="manage_users">Usuaris</x-sidebar.item-protected>
                 <x-sidebar.item-protected route="students" permission="manage_students">Alumnes</x-sidebar.item-protected>
                 <x-sidebar.item-protected route="groups" permission="manage_groups">Grups</x-sidebar.item-protected>

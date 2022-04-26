@@ -7,10 +7,13 @@
                     @if (auth()->user()->hasPermissionTo("manage_users"))
                         <div class="bg-white p-6 border-gray-500 shadow-black overflow-hidden rounded">
                             <p>Gestiona usuaris</p>
+                            <a href=" {{ route('users') }}">Llista usuaris</a>
+                            <a href=" {{ route('users.create') }}">Nou usuari</a>
                         </div>
                     @endif
                     @if (auth()->user()->hasPermissionTo("manage_students"))
                         <p>Gestiona alumnes</p>
+
                     @endif
                     @if (auth()->user()->hasPermissionTo("manage_groups"))
                         <p>Gestiona grups</p>

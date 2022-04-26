@@ -21,12 +21,12 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased flex">
-        <div class="min-h-screen bg-gray-300">
+        <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
         </div>
             <!-- Page Content -->
-        <div class="w-2/3 bg-gray-300">
+        <div class="w-2/3 bg-gray-100">
         {{ $slot }}
         </div>
 
