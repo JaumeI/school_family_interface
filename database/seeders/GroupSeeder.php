@@ -14,7 +14,13 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        Group::create(['name' => '1er A 21/22']);
-        Group::create(['name' => '2on A 21/22',]);
+        Group::create(['name' => '1er A']);
+        Group::create(['name' => '2on A',]);
+        Group::create(['name' => 'Aula taller']);
+        Group::create(['name' => 'Extraescolar Robòtica',]);
+        Group::create(['name' => '3er']);
+        Group::create(['name' => '4rt',]);
+        Group::create(['name' => '5è A']);
+        Group::create(['name' => '6è C',]);
     }
 }

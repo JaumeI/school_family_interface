@@ -30,8 +30,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/users/{id}', \App\Http\Controllers\Users\UserDestroyController::class)->name('users.destroy');
 
 
+    //Groups
+    Route::get('/groups', \App\Http\Controllers\Groups\GroupIndexController::class)->name('groups');
+    Route::get('/groups/create', \App\Http\Controllers\Groups\GroupCreateController::class)->name('groups.create');
+    Route::post('/groups', \App\Http\Controllers\Groups\GroupStoreController::class)->name('groups.store');
+    Route::get('/groups/{id}/edit', \App\Http\Controllers\Groups\GroupEditController::class)->name('groups.edit');
+    Route::put('/groups/{id}', \App\Http\Controllers\Groups\GroupUpdateController::class)->name('groups.update');
+    Route::delete('/groups/{id}', \App\Http\Controllers\Groups\GroupDestroyController::class)->name('groups.destroy');
+
+
+
     Route::get('/students', \App\Http\Controllers\DashboardController::class)->name('students');
-    Route::get('/groups', \App\Http\Controllers\DashboardController::class)->name('groups');
+   // Route::get('/groups', \App\Http\Controllers\DashboardController::class)->name('groups');
     Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
     Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
     Route::get('/start_thread', \App\Http\Controllers\DashboardController::class)->name('start_thread');

@@ -35,6 +35,8 @@ class UserSeeder extends Seeder
         $admin_permissions[] = Permission::where('name', 'manage_students')->first()->id;
         $admin_permissions[] = Permission::where('name', 'manage_groups')->first()->id;
         $admin_permissions[] = Permission::where('name', 'manage_permissions')->first()->id;
+        $admin_permissions[] = Permission::where('name', 'start_thread')->first()->id;
+        $admin_permissions[] = Permission::where('name', 'messages')->first()->id;
         $admin->permissions()->attach($admin_permissions);
 
         //If this is a demo, we create some example users
@@ -88,8 +90,8 @@ class UserSeeder extends Seeder
             $tutor2->permissions()->attach($permissions);
 
             //Groups
-            $tutor1->groups()->attach(Group::where('name','1er A 21/22')->first()->id);
-            $tutor2->groups()->attach(Group::where('name','2on A 21/22')->first()->id);
+            $tutor1->groups()->attach(Group::where('name','1er A')->first()->id);
+            $tutor2->groups()->attach(Group::where('name','2on A')->first()->id);
 
             //Students: Family1 has two students, Family2 has one
             $f1_students = array();

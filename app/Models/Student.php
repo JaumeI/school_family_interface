@@ -20,4 +20,8 @@ class Student extends Model
     {
         return $this->belongsToMany(Image::class);
     }
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
 }

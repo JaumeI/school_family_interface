@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             ImageSeeder::class,
             UserSeeder::class,
+            GroupStudentSeeder::class,
             ]);
     }
 

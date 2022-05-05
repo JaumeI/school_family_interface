@@ -9,7 +9,15 @@ class DashboardController extends Controller
 
     public function __invoke(Request $request)
     {
-        return view('dashboard');
+        if (auth()->user()->hasPermissionTo("messages"))
+        {
+            return view('messages.index');
+        }
+        else
+        {
+            return view('dashboard');
+        }
+
 
     }
 }
