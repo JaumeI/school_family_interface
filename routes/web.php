@@ -38,9 +38,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/groups/{id}', \App\Http\Controllers\Groups\GroupUpdateController::class)->name('groups.update');
     Route::delete('/groups/{id}', \App\Http\Controllers\Groups\GroupDestroyController::class)->name('groups.destroy');
 
+    //Students
+    Route::get('/students', \App\Http\Controllers\Students\StudentIndexController::class)->name('students');
+    Route::get('/students/create', \App\Http\Controllers\Students\StudentCreateController::class)->name('students.create');
+    Route::post('/students', \App\Http\Controllers\Students\StudentStoreController::class)->name('students.store');
+    Route::get('/students/{id}/edit', \App\Http\Controllers\Students\StudentEditController::class)->name('students.edit');
+    Route::put('/students/{id}', \App\Http\Controllers\Students\StudentUpdateController::class)->name('students.update');
+    Route::delete('/students/{id}', \App\Http\Controllers\Students\StudentDestroyController::class)->name('students.destroy');
 
 
-    Route::get('/students', \App\Http\Controllers\DashboardController::class)->name('students');
+
+    //Route::get('/students', \App\Http\Controllers\DashboardController::class)->name('students');
    // Route::get('/groups', \App\Http\Controllers\DashboardController::class)->name('groups');
     Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
     Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
