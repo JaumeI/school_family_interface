@@ -18,9 +18,17 @@ class GroupStudentSeeder extends Seeder
         $students = Student::all();
         foreach ($students as $student)
         {
-            $groups[] = Group::inRandomOrder()->limit(1)->first()->id;
-            $groups[] = Group::inRandomOrder()->limit(1)->first()->id;
+            $groups = Array();
+            $g1 = Group::inRandomOrder()->first()->id;
+            do
+            {
+                $g2 = Group::inRandomOrder()->first()->id;
+            }while($g2==$g1);
+            $groups[] = $g1;
+            $groups[] = $g2;
+
             $student->groups()->attach($groups);
+
         }
 
     }

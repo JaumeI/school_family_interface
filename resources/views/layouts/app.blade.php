@@ -8,23 +8,19 @@
 
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
-        function addMulti(){
-            var checked = document.querySelectorAll('#origin :checked');
-            checked.forEach(element => document.getElementById('destination').options.add(element));
+        function moveElement(fromControl, toControl) {
+            var checked = document.querySelectorAll('#'+fromControl+' :checked');
+            checked.forEach(element => document.getElementById(toControl).options.add(element));
         }
-        function removeMulti(){
-            var checked = document.querySelectorAll('#destination :checked');
-            checked.forEach(element => document.getElementById('origin').options.add(element));
-        }
-        function selectAll(selectBox,selectAll) {
-            // have we been passed an ID
+
+        function selectAll(selectBox) {
             if (typeof selectBox == "string") {
                 selectBox = document.getElementById(selectBox);
             }
-            // is the select box a multiple select box?
+            // check if the select box is a multiple select box
             if (selectBox.type == "select-multiple") {
                 for (var i = 0; i < selectBox.options.length; i++) {
-                    selectBox.options[i].selected = selectAll;
+                    selectBox.options[i].selected = true;
                 }
             }
         }
@@ -40,7 +36,7 @@
 
         <div x-data="{ open: false }" @keydown.window.escape="open = false">
             <button type="button"
-                    class="px-4 border-r bg-indigo-200 border-gray-200 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+                    class="px-6 py-4 text-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
                     @click="open = true">
                 <span class="sr-only">Open sidebar</span>
                 <svg class="h-6 w-6" x-description="Heroicon name: outline/menu-alt-2"

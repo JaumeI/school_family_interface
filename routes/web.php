@@ -19,8 +19,15 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/login');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->name('dashboard');
-    //Route::get('/users', \App\Http\Controllers\DashboardController::class)->name('users');
+    Route::get('/dashboard', \App\Http\Controllers\Messages\MessageIndexController::class)->name('messages');
+    //Messages
+    Route::get('/message', \App\Http\Controllers\Messages\MessageIndexController::class)->name('messages');
+    Route::get('/message/create', \App\Http\Controllers\Messages\MessageCreateController::class)->name('messages.create');
+    Route::post('/message', \App\Http\Controllers\Messages\MessageStoreController::class)->name('messages.store');
+    Route::get('/message/{id}/edit', \App\Http\Controllers\Messages\MessageEditController::class)->name('messages.edit');
+    Route::put('/message/{id}', \App\Http\Controllers\Messages\MessageUpdateController::class)->name('messages.update');
+    Route::delete('/message/{id}', \App\Http\Controllers\Messages\MessageDestroyController::class)->name('messages.destroy');
+
     //Users
     Route::get('/users', \App\Http\Controllers\Users\UserIndexController::class)->name('users');
     Route::get('/users/create', \App\Http\Controllers\Users\UserCreateController::class)->name('users.create');
@@ -28,7 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users/{id}/edit', \App\Http\Controllers\Users\UserEditController::class)->name('users.edit');
     Route::put('/users/{id}', \App\Http\Controllers\Users\UserUpdateController::class)->name('users.update');
     Route::delete('/users/{id}', \App\Http\Controllers\Users\UserDestroyController::class)->name('users.destroy');
-
 
     //Groups
     Route::get('/groups', \App\Http\Controllers\Groups\GroupIndexController::class)->name('groups');
@@ -48,14 +54,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    //Route::get('/students', \App\Http\Controllers\DashboardController::class)->name('students');
-   // Route::get('/groups', \App\Http\Controllers\DashboardController::class)->name('groups');
-    Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
-    Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
-    Route::get('/start_thread', \App\Http\Controllers\DashboardController::class)->name('start_thread');
-    Route::get('/messages', \App\Http\Controllers\DashboardController::class)->name('messages');
 
     // TODO: Resta de rutes que estan protegides per autenticació
+    Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
+    Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
+
+
 
 });
 

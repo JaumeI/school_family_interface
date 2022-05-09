@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * App\Models\User
@@ -40,6 +42,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -90,6 +93,30 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Image::class);
     }
+    public function messages()
+    {
+        return Message::where('user_to','=',$this->id)
+            ->orWhere('user_from', '=',$this->id)
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+    }
+    public function messagesWith(int $target): Collection
+    {
+        return Message::query()
+            ->where(function ($from) use ($target) {
+                $from->where('user_to', $target)
+                    ->where('user_from', $this->id);
+            })
+            ->orWhere(function ($to) use ($target) {
+                $to->where('user_to', $this->id)
+                    ->where('user_from', $target);
+            })
+            ->orderBy('created_at')
+            ->get();
+    }
+
+
 
     public function hasPermissionTo(string $permission): bool
     {

@@ -5,20 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class Group extends Model
+
+class Message extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = [
-        'name',
-    ];
-    public function users()
-    {
 
-        return $this->belongsToMany(User::class);
-    }
-    public function students()
-    {
-        return $this->belongsToMany(Student::class);
-    }
+    protected $fillable = [
+        'content',
+        'user_from',
+        'user_to',
+    ];
+    protected $dates = ['created_at'];
 }

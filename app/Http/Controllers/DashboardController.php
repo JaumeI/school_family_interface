@@ -11,6 +11,7 @@ class DashboardController extends Controller
     {
         if (auth()->user()->hasPermissionTo("messages"))
         {
+
             return view('messages.index');
         }
         else

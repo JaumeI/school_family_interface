@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             ImageSeeder::class,
             UserSeeder::class,
             GroupStudentSeeder::class,
+            MessageSeeder::class,
             ]);
     }
 
