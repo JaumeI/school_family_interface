@@ -65,7 +65,7 @@
                             <div class="basis-2/5 ">
                                 <div class="w-full">
                                     <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Llistat
-                                        d'usuaris que poden etiquetar</label>
+                                        d'usuaris que poden veure imatges</label>
                                     <select name="origin_users" id="origin_users"
                                             class="form-multiselect shadow block w-full rounded mt-1" size="10" multiple>
                                         @foreach($users as $user)
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="basis-2/5">
-                                <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Usuaris amb permisos per etiquetar aquest alumne</label>
+                                <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Usuaris amb permisos per visualitzar aquest alumne</label>
                                 <select name="destination_users[]" id="destination_users"
                                         class="form-multiselect shadow block rounded w-full mt-1" size="10" multiple>
                                     @foreach($student->users()->orderBy('name')->get() as $user)

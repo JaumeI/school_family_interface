@@ -13,29 +13,28 @@ class ImageIndexController extends Controller
 
     public function __invoke(Request $request)
     {
-        if (!auth()->user()->hasPermissionTo("messages"))
+        abort_unless($request->user()->hasPermissionTo('see_images'), 403, 'You cannot perform this action');
+
+
+        $students =$request->user()->students()->orderBy('name')->get();
+
+        $images = array();
+        foreach ($students as $student )
         {
-            return view('dashboard');
+           foreach($student->images()->get() as $image)
+           {
+               if(!isset($images[$image->name]))
+               {
+                   $images[$image->name] = $image;
+               }
+           }
         }
+        $images = array_unique($images);
 
-        $messages =$request->user()->messages();
-        $ids=Array();
-        foreach ($messages as $message )
-        {
-            // Is the sender ourselves? Is it already in the array?
-            if( $message->user_from != $request->user()->id && !in_array($message->user_from, $ids))
-            {
-                $ids[] = $message->user_from;
-            }
-            // Is the receiver ourselves? Is it already in the array?
-            else if($message->user_to != $request->user()->id && !in_array($message->user_to, $ids)){
-                $ids[] = $message->user_to;
-            }
-        }
 
-        $users = User::whereIn('id',$ids)->get();
 
-        return view('messages.index')->with('users',$users);
+
+        return view('images.index')->with('images',$images);
     }
 
 }

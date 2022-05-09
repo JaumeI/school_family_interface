@@ -185,7 +185,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <button type="submit" onclick="selectAll(document.getElementById('destination_permissions'));selectAll(document.getElementById('destination_groups'))"
+                            <button type="submit" onclick="selectAll(document.getElementById('destination_permissions'));selectAll(document.getElementById('destination_groups'));selectAll(document.getElementById('destination_students'))"
                                     class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 border border-indigo-700 rounded">
                                 Desar
                             </button>

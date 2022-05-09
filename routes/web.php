@@ -65,8 +65,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // TODO: Resta de rutes que estan protegides per autenticació
-    Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
-    Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
+    //Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
+    //Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
 
 
 
