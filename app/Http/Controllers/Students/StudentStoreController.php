@@ -24,7 +24,7 @@ class StudentStoreController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
         ]);
-        //In case of a new group, we proceed to create one
+        //In case of a new student, we proceed to create one
         if($student == null)
         {
             $student = Student::create([
@@ -35,9 +35,11 @@ class StudentStoreController extends Controller
         {
             $student->name = $request->name;
             $student->groups()->detach();
+            $student->users()->detach();
 
         }
-        $student->groups()->attach($request->destination);
+        $student->groups()->attach($request->destination_groups);
+        $student->users()->attach($request->destination_users);
 
         $student->save();
 

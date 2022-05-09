@@ -35,9 +35,11 @@ class GroupStoreController extends Controller
         {
             $group->name = $request->name;
             $group->students()->detach();
+            $group->users()->detach();
 
         }
-        $group->students()->attach($request->destination);
+        $group->students()->attach($request->destination_students);
+        $group->users()->attach($request->destination_users);
 
         $group->save();
 

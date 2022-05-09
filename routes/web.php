@@ -28,6 +28,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/message/{id}', \App\Http\Controllers\Messages\MessageUpdateController::class)->name('messages.update');
     Route::delete('/message/{id}', \App\Http\Controllers\Messages\MessageDestroyController::class)->name('messages.destroy');
 
+    //Images
+
+    Route::get('/image', \App\Http\Controllers\Images\ImageIndexController::class)->name('images');
+    Route::get('/image/create', \App\Http\Controllers\Images\ImageCreateController::class)->name('images.create');
+    Route::post('/image', \App\Http\Controllers\Images\ImageStoreController::class)->name('images.store');
+    Route::get('/image/{id}/edit', \App\Http\Controllers\Images\ImageEditController::class)->name('images.edit');
+    Route::put('/image/{id}', \App\Http\Controllers\Images\ImageUpdateController::class)->name('images.update');
+    Route::delete('/image/{id}', \App\Http\Controllers\Images\ImageDestroyController::class)->name('images.destroy');
+
     //Users
     Route::get('/users', \App\Http\Controllers\Users\UserIndexController::class)->name('users');
     Route::get('/users/create', \App\Http\Controllers\Users\UserCreateController::class)->name('users.create');

@@ -16,16 +16,11 @@ class UserStoreController extends Controller
     public function __invoke(Request $request)
     {
 
-        $permissions = array();
+
         abort_unless($request->user()->hasPermissionTo('manage_users'), 403, 'You cannot perform this action');
         //Let's check if the user (email) already exists
         $user = User::whereEmail($request->email)->first();
 
-        $request->validate([
-            //'name' => ['required', 'string', 'max:255'],
-            //'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            //'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
         //In case of a new user, we proceed to create one
         if($user == null)
         {
@@ -33,7 +28,6 @@ class UserStoreController extends Controller
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
             $user = User::create([
                 'name' =>  $request->name,
@@ -61,22 +55,13 @@ class UserStoreController extends Controller
             // We erase all permissions, on the next block we add the news.
             // This is more efficient than checking one by one if the user already has them.
             $user->permissions()->detach();
+            $user->groups()->detach();
+            $user->students()->detach();
         }
 
-        //If any of the permissions are set. This allows users without any permission
-        if(isset($request->permissions))
-        {
-            foreach ($request->permissions as $permission)
-            {
-                $permissions[] = Permission::where('name', $permission)->first()->id;
-            }
-            //Double check that some permissions are to be added
-            if(isset($permissions) && count($permissions)>0)
-            {
-                $user->permissions()->attach($permissions);
-            }
-        }
-
+        $user->permissions()->attach($request->destination_permissions);
+        $user->groups()->attach($request->destination_groups);
+        $user->students()->attach($request->destination_students);
 
         if(!($request->sendcredentials==null))
         {

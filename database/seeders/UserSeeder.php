@@ -30,14 +30,12 @@ class UserSeeder extends Seeder
         ]);
 
         //Add Admin permissions
-        $admin_permissions = array();
-        $admin_permissions[] = Permission::where('name', 'manage_users')->first()->id;
-        $admin_permissions[] = Permission::where('name', 'manage_students')->first()->id;
-        $admin_permissions[] = Permission::where('name', 'manage_groups')->first()->id;
-        $admin_permissions[] = Permission::where('name', 'manage_permissions')->first()->id;
-        $admin_permissions[] = Permission::where('name', 'start_thread')->first()->id;
-        $admin_permissions[] = Permission::where('name', 'messages')->first()->id;
-        $admin->permissions()->attach($admin_permissions);
+        $permissions = array();
+        foreach (Permission::all() as $permission)
+        {
+            $permissions[] = $permission->id;
+        }
+        $admin->permissions()->attach($permissions);
 
         //If this is a demo, we create some example users
         if(strtolower(env('APP_DEMO', 'true'))==true){
@@ -78,7 +76,6 @@ class UserSeeder extends Seeder
             //Permissions
             $permissions = array();
             $permissions[] = Permission::where('name', 'see_images')->first()->id;
-            $permissions[] = Permission::where('name', 'start_thread')->first()->id;
             $permissions[] = Permission::where('name', 'messages')->first()->id;
             $family1->permissions()->attach($permissions);
             $family2->permissions()->attach($permissions);
@@ -90,16 +87,39 @@ class UserSeeder extends Seeder
             $tutor2->permissions()->attach($permissions);
 
             //Groups
-            $tutor1->groups()->attach(Group::where('name','1er A')->first()->id);
-            $tutor2->groups()->attach(Group::where('name','2on A')->first()->id);
+            $groups = Array();
+            $g1 = Group::inRandomOrder()->first()->id;
+            do
+            {
+                $g2 = Group::inRandomOrder()->first()->id;
+            }while($g2==$g1);
+            $groups[] = $g1;
+            $groups[] = $g2;
+            $tutor1->groups()->attach($groups);
+
+            $groups = Array();
+            $g1 = Group::inRandomOrder()->first()->id;
+            do
+            {
+                $g2 = Group::inRandomOrder()->first()->id;
+            }while($g2==$g1);
+            $groups[] = $g1;
+            $groups[] = $g2;
+            $tutor2->groups()->attach($groups);
 
             //Students: Family1 has two students, Family2 has one
             $f1_students = array();
-            $f1_students[] = Student::where('name','student1')->first()->id;
-            $f1_students[] = Student::where('name','student2')->first()->id;
+
+            $s1 = Student::inRandomOrder()->first()->id;
+            do
+            {
+                $s2 = Student::inRandomOrder()->first()->id;
+            }while($s2==$s1);
+            $f1students[] = $s1;
+            $f1students[] = $s2;
 
             $family1->students()->attach($f1_students);
-            $family2->students()->attach(Student::where('name','student3')->first()->id);
+            $family2->students()->attach(Student::inRandomOrder()->first()->id);
 
         }
 

@@ -16,20 +16,37 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-
-        //admin permissions
-        Permission::create(['name' =>  'manage_users']);
-        Permission::create(['name' =>  'manage_students']);
-        Permission::create(['name' =>  'manage_groups']);
-        Permission::create(['name' =>  'manage_permissions']);
-
-        //tutor permissions
-        Permission::create(['name' =>  'manage_tags',]);
-        Permission::create(['name' =>  'upload_images']);
-
-        //mixed permissions
-        Permission::create(['name' =>  'see_images']);
-        Permission::create(['name' =>  'start_thread']);
-        Permission::create(['name' =>  'messages']);
+        Permission::create([
+            'name' =>  'manage_users',
+            'public_name' => 'Usuaris',
+            ]);
+        Permission::create([
+            'name' =>  'manage_students',
+            'public_name' => 'Alumnes',
+            ]);
+        Permission::create([
+            'name' =>  'manage_groups',
+            'public_name' => 'Grups',
+            ]);
+        Permission::create([
+            'name' =>  'manage_permissions',
+            'public_name' => 'Permisos',
+            ]);
+        Permission::create([
+            'name' =>  'manage_tags',
+            'public_name' => 'Etiquetes',
+            ]);
+        Permission::create([
+            'name' =>  'upload_images',
+            'public_name' => 'Pujar Imatges',
+            ]);
+        Permission::create([
+            'name' =>  'see_images',
+            'public_name' => 'Veure Imatges',
+            ]);
+        Permission::create([
+            'name' =>  'messages',
+            'public_name' => 'Missatges',
+            ]);
     }
 }

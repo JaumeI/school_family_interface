@@ -9,6 +9,12 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'path',
+        'uploader_id'
+    ];
+
     public function students()
     {
         return $this->belongsToMany(Student::class);

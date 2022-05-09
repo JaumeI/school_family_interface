@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use function abort_unless;
 use App\Models\Group;
+use App\Models\Student;
 use function view;
 
 class StudentCreateController extends Controller
@@ -15,6 +16,10 @@ class StudentCreateController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('manage_students'), 403, 'You cannot perform this action');
 
-        return view('groups.edit')->with('group', new Group());
+        return view('students.edit')
+            ->with('student', new Student())
+            ->with('groups',Group::orderBy('name')->get());
+
+
     }
 }

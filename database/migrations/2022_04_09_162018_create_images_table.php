@@ -15,9 +15,9 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('path')->default(env('IMAGE_FOLDER', 'images/'));
+            $table->string('path')->default(env('IMAGE_FOLDER', 'images/studentimages'));
+            $table->string('name');
             $table->foreignId('uploader_id');
-            $table->date('upload_date')->default(\Carbon\Carbon::now());
             $table->timestamps();
         });
     }

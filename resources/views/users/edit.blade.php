@@ -24,73 +24,149 @@
                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
 
-                        <div class="md:columns-2">
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="manage_users" id="manage_users"
-                                       {{ $user->hasPermissionTo('manage_users')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Gestionar
-                                    Usuaris</label>
+                        <div class="mb-4 flex flex-row items-center">
+                            <div class="basis-2/5 ">
+                                <div class="w-full">
+                                    <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Permisos no atorgats
+                                        </label>
+                                    <select name="origin_permissions" id="origin_permissions"
+                                            class="form-multiselect shadow block rounded w-full mt-1" size="10" multiple>
+                                        @foreach($permissions as $permission)
+                                            <option value="{{$permission->id}}">{{$permission->public_name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="manage_students"
-                                       id="manage_students"
-                                       {{ $user->hasPermissionTo('manage_students')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Gestionar
-                                    Alumnes</label>
+
+                            <div class="basis-1/5">
+                                <div class="flex flex-col">
+                                    <button type="button" id="add"
+                                            class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 my-2 text-center border border-indigo-700 rounded w-2/4 mx-auto"
+                                            onclick="moveElement('origin_permissions', 'destination_permissions')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+                                    <button type="button" id="remove"
+                                            class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 my-2 text-center border border-indigo-700 rounded w-2/4 mx-auto"
+                                            onclick="moveElement('destination_permissions', 'origin_permissions')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="manage_groups" id="manage_groups"
-                                       {{ $user->hasPermissionTo('manage_groups')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Gestionar
-                                    Grups</label>
-                            </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]s" value="manage_permissions"
-                                       id="manage_permissions"
-                                       {{ $user->hasPermissionTo('manage_permissions')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Gestionar
-                                    Permisos</label>
-                            </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="manage_tags" id="manage_tags"
-                                       {{ $user->hasPermissionTo('manage_tags')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Gestionar
-                                    Etiquetes</label>
-                            </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="upload_images" id="upload_images"
-                                       {{ $user->hasPermissionTo('upload_images')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Pujar
-                                    Imatges</label>
-                            </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="see_images" id="see_images"
-                                       {{ $user->hasPermissionTo('see_images')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Veure
-                                    Imatges</label>
-                            </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="start_thread" id="start_thread"
-                                       {{ $user->hasPermissionTo('start_thread')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Iniciar
-                                    converses</label>
-                            </div>
-                            <div class="mb-4">
-                                <input type="checkbox" name="permissions[]" value="messages" id="messages"
-                                       {{ $user->hasPermissionTo('messages')? 'checked' : '' }}
-                                       class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
-                                <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Enviar
-                                    Missatges</label>
+                            <div class=" basis-2/5">
+
+                                <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Permisos atorgats</label>
+                                <select name="destination_permissions[]" id="destination_permissions"
+                                        class="form-multiselect shadow block rounded w-full mt-1" size="10" multiple>
+                                    @foreach($user->permissions()->orderBy('name')->get() as $permission)
+                                        <option value="{{$permission->id}}">{{$permission->public_name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+
+
+                        <!--Groups this user has permission to tag-->
+                        <div class="mb-4 flex flex-row items-center">
+                            <div class="basis-2/5 ">
+                                <div class="w-full">
+                                    <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Llistat
+                                        de grups</label>
+                                    <select name="origin_groups" id="origin_groups"
+                                            class="form-multiselect shadow block w-full rounded mt-1" size="10" multiple>
+                                        @foreach($groups as $group)
+                                            <option value="{{$group->id}}">{{$group->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="basis-1/5">
+                                <div class="flex flex-col">
+
+                                    <button type="button" id="add"
+                                            class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 my-2 text-center border border-indigo-700 rounded w-2/4 mx-auto"
+                                            onclick="moveElement('origin_groups', 'destination_groups')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+
+                                    <button type="button" id="remove"
+                                            class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 my-2 text-center border border-indigo-700 rounded w-2/4 mx-auto"
+                                            onclick="moveElement('destination_groups', 'origin_groups')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w46 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                                        </svg>
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="basis-2/5">
+                                <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Grups als que pertany</label>
+                                <select name="destination_groups[]" id="destination_groups"
+                                        class="form-multiselect shadow block rounded w-full mt-1" size="10" multiple>
+                                    @foreach($user->groups()->orderBy('name')->get() as $group)
+                                        <option value="{{$group->id}}">{{$group->name}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <!--Students this user has permission to see-->
+                        <div class="mb-4 flex flex-row items-center">
+                            <div class="basis-2/5 ">
+                                <div class="w-full">
+                                    <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Llistat
+                                        d'alumnes</label>
+                                    <select name="origin_students" id="origin_students"
+                                            class="form-multiselect shadow block w-full rounded mt-1" size="10" multiple>
+                                        @foreach($students as $student)
+                                            <option value="{{$student->id}}">{{$student->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="basis-1/5">
+                                <div class="flex flex-col">
+
+                                    <button type="button" id="add"
+                                            class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 my-2 text-center border border-indigo-700 rounded w-2/4 mx-auto"
+                                            onclick="moveElement('origin_students', 'destination_students')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                                        </svg>
+                                    </button>
+
+                                    <button type="button" id="remove"
+                                            class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 my-2 text-center border border-indigo-700 rounded w-2/4 mx-auto"
+                                            onclick="moveElement('destination_students', 'origin_students')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w46 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                                        </svg>
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div class="basis-2/5">
+                                <label for="all" class="block text-gray-700 text-sm font-bold mb-2">Alumnes que aquest usuari pot visualitzar</label>
+                                <select name="destination_students[]" id="destination_students"
+                                        class="form-multiselect shadow block rounded w-full mt-1" size="10" multiple>
+                                    @foreach($user->students()->orderBy('name')->get() as $student)
+                                        <option value="{{$student->id}}">{{$student->name}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                        </div>
+
+
+
 
 
                         <div class="mb-4">
@@ -107,10 +183,11 @@
                             <label class="form-check-label inline-block text-gray-800" for="flexCheckChecked">Enviar
                                 credencials</label>
                         </div>
+
                         <div class="mb-4">
-                            <button type="submit"
-                                    class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                                Submit
+                            <button type="submit" onclick="selectAll(document.getElementById('destination_permissions'));selectAll(document.getElementById('destination_groups'))"
+                                    class="bg-indigo-600 hover:bg-indigo-500 text-gray-200 font-bold py-2 px-4 border border-indigo-700 rounded">
+                                Desar
                             </button>
                         </div>
                     </form>
