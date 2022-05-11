@@ -20,6 +20,11 @@ class MessageStoreController extends Controller
     public function __invoke(Request $request)
     {
         abort_unless($request->user()->hasPermissionTo('messages'), 403, 'You cannot perform this action');
+        $request->validate([
+            'content' => ['required', 'string'],
+
+        ]);
+
         $otheruser = User::where('id','=', $request->otherid)->first();
 
         $clean_message = strip_tags($request->message);

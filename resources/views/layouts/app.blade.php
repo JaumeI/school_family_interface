@@ -25,30 +25,6 @@
                 }
             }
         }
-
-        function filterTags(control)
-        {
-            var images = document.querySelectorAll('.image');
-
-            images.forEach(function(element)
-                {
-                    element.classList.add("hidden");
-                }
-            )
-            var checked = document.querySelectorAll('#'+control+' :checked');
-            checked.forEach(
-                function(element)
-                {
-                    var show = document.querySelectorAll('.tag-'+element.value);
-                    show.forEach(
-                        function(img)
-                        {
-                            img.classList.remove("hidden");
-                        }
-                    )
-                }
-            );
-        }
     </script>
 
 

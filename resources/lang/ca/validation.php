@@ -157,6 +157,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => ['name' => 'nom', 'content' => 'missatge'],
 
 ];
