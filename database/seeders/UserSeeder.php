@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
     public function run()
     {
 
-        //Create Admin user
+        //Create Admin user. All permissions, access to all groups and students.
         $admin = User::create([
             'name' =>  'admin',
             'email' => env('ADMIN_MAIL','admin@mail.com'),
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        //Add Admin permissions
+        //Add all permissions
         $permissions = array();
         foreach (Permission::all() as $permission)
         {
@@ -37,9 +37,26 @@ class UserSeeder extends Seeder
         }
         $admin->permissions()->attach($permissions);
 
-        //If this is a demo, we create some example users
+        //If this is a demo, we create some example config
         if(strtolower(env('APP_DEMO', 'true'))==true){
+            $groups = array();
+            //admin has access to all groups
+            foreach (Group::all() as $group)
+            {
+                $groups[] = $group->id;
+            }
+            $admin->groups()->attach($groups);
+
+            $students = array();
+            //admin has access to all  students
+            foreach (Student::all() as $student)
+            {
+                $students[] = $student->id;
+            }
+            $admin->students()->attach($students);
+
             //Create demo tutor users
+            // Tutor1
             $tutor1 = User::create([
                 'name' =>  'tutor1',
                 'email' => 'tutor1@mail.com',
@@ -48,6 +65,17 @@ class UserSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ]);
 
+            $groups = array();
+            $g1 = Group::inRandomOrder()->first()->id;
+            do
+            {
+                $g2 = Group::inRandomOrder()->first()->id;
+            }while($g2==$g1);
+            $groups[] = $g1;
+            $groups[] = $g2;
+            $tutor1->groups()->attach($groups);
+
+            // Tutor 2
             $tutor2 = User::create([
                 'name' =>  'tutor2',
                 'email' => 'tutor2@mail.com',
@@ -55,6 +83,15 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'), // password
                 'remember_token' => Str::random(10),
             ]);
+            $groups = array();
+            $g1 = Group::inRandomOrder()->first()->id;
+            do
+            {
+                $g2 = Group::inRandomOrder()->first()->id;
+            }while($g2==$g1);
+            $groups[] = $g1;
+            $groups[] = $g2;
+            $tutor2->groups()->attach($groups);
 
             //Create demo family users
             $family1 = User::create([
@@ -64,6 +101,18 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'), // password
                 'remember_token' => Str::random(10),
             ]);
+            // Family1 has two students
+            $f1_students = array();
+
+            $s1 = Student::inRandomOrder()->first()->id;
+            do
+            {
+                $s2 = Student::inRandomOrder()->first()->id;
+            }while($s2==$s1);
+            $f1students[] = $s1;
+            $f1students[] = $s2;
+            $family1->students()->attach($f1_students);
+
 
             $family2 = User::create([
                 'name' =>  'family2',
@@ -72,8 +121,10 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'), // password
                 'remember_token' => Str::random(10),
             ]);
+            //Family 2 has 1 student
+            $family2->students()->attach(Student::inRandomOrder()->first()->id);
 
-            //Permissions
+            //Permissions for demo users
             $permissions = array();
             $permissions[] = Permission::where('name', 'see_images')->first()->id;
             $permissions[] = Permission::where('name', 'messages')->first()->id;
@@ -85,41 +136,6 @@ class UserSeeder extends Seeder
             $permissions[] = Permission::where('name', 'upload_images')->first()->id;
             $tutor1->permissions()->attach($permissions);
             $tutor2->permissions()->attach($permissions);
-
-            //Groups
-            $groups = Array();
-            $g1 = Group::inRandomOrder()->first()->id;
-            do
-            {
-                $g2 = Group::inRandomOrder()->first()->id;
-            }while($g2==$g1);
-            $groups[] = $g1;
-            $groups[] = $g2;
-            $tutor1->groups()->attach($groups);
-
-            $groups = Array();
-            $g1 = Group::inRandomOrder()->first()->id;
-            do
-            {
-                $g2 = Group::inRandomOrder()->first()->id;
-            }while($g2==$g1);
-            $groups[] = $g1;
-            $groups[] = $g2;
-            $tutor2->groups()->attach($groups);
-
-            //Students: Family1 has two students, Family2 has one
-            $f1_students = array();
-
-            $s1 = Student::inRandomOrder()->first()->id;
-            do
-            {
-                $s2 = Student::inRandomOrder()->first()->id;
-            }while($s2==$s1);
-            $f1students[] = $s1;
-            $f1students[] = $s2;
-
-            $family1->students()->attach($f1_students);
-            $family2->students()->attach(Student::inRandomOrder()->first()->id);
 
         }
 

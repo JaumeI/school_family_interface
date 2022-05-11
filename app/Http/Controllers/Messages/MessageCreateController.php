@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Messages;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use function abort_unless;
 use App\Models\Group;
@@ -15,6 +16,7 @@ class MessageCreateController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('messages'), 403, 'You cannot perform this action');
 
-        return view('groups.edit')->with('group', new Group());
+        return view('messages.create');
+
     }
 }

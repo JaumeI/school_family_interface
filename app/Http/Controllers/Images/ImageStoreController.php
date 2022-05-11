@@ -39,9 +39,14 @@ class ImageStoreController extends Controller
         {
             foreach($group->students()->orderBy('name')->get() as $student)
             {
-                $available_students[] = $student;
+                if(!isset($available_students[$student->id]))
+                {
+                    $available_students[$student->id] = $student;
+                }
             }
         }
+        //order the students
+        ksort($available_students);
 
         abort_unless($request->user()->hasPermissionTo('upload_images'), 403, 'You cannot perform this action');
         return view('images.create')

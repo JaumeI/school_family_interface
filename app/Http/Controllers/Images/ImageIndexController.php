@@ -19,22 +19,30 @@ class ImageIndexController extends Controller
         $students =$request->user()->students()->orderBy('name')->get();
 
         $images = array();
+        $tags = array();
         foreach ($students as $student )
         {
            foreach($student->images()->get() as $image)
            {
-               if(!isset($images[$image->name]))
+               if(!isset($images[$image->id]))
                {
-                   $images[$image->name] = $image;
+                   $images[$image->id] = $image;
+                   foreach ($image->tags()->get() as $tag)
+                   {
+                       if(!isset($tags[$tag->id]))
+                       {
+                           $tags[$tag->id] = $tag;
+                       }
+                   }
+
                }
            }
         }
         $images = array_unique($images);
 
-
-
-
-        return view('images.index')->with('images',$images);
+        return view('images.index')
+            ->with('images', $images)
+            ->with('tags', $tags);
     }
 
 }

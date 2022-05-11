@@ -2,11 +2,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/v2-assets/components.css?id=20c0b40a1dbe0785ad2e121780055f6b">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <title>{{ config('app.name', 'SFI') }}</title>
 
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <script>
         function moveElement(fromControl, toControl) {
             var checked = document.querySelectorAll('#'+fromControl+' :checked');
@@ -23,6 +24,30 @@
                     selectBox.options[i].selected = true;
                 }
             }
+        }
+
+        function filterTags(control)
+        {
+            var images = document.querySelectorAll('.image');
+
+            images.forEach(function(element)
+                {
+                    element.classList.add("hidden");
+                }
+            )
+            var checked = document.querySelectorAll('#'+control+' :checked');
+            checked.forEach(
+                function(element)
+                {
+                    var show = document.querySelectorAll('.tag-'+element.value);
+                    show.forEach(
+                        function(img)
+                        {
+                            img.classList.remove("hidden");
+                        }
+                    )
+                }
+            );
         }
     </script>
 
@@ -65,7 +90,7 @@
                      x-transition:leave="transition ease-in-out duration-300 transform"
                      x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
                      x-description="Off-canvas menu, show/hide based on off-canvas menu state."
-                     class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-700"
+                     class="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-indigo-200"
                      style="display: none;">
 
                     <div x-show="open" x-transition:enter="ease-in-out duration-300"
@@ -87,86 +112,16 @@
                         </button>
                     </div>
 
-                    <div class="flex-shrink-0 flex items-center px-4">
+                    <div class="flex items-center flex-shrink-0 px-4">
                         <img class="h-8 w-auto"
-                             src="https://tailwindui.com/img/logos/workflow-logo-indigo-300-mark-white-text.svg"
-                             alt="Workflow">
+                             src="{{asset('storage/images/logotrans.png')}}"
+                             alt="SFI">
+                        <div class="pl-3">School Family Interface</div>
                     </div>
                     <div class="mt-5 flex-1 h-0 overflow-y-auto">
                         <nav class="px-2 space-y-1">
 
-                            <a href="#"
-                               class="bg-indigo-800 text-white group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                               x-state:on="Current" x-state:off="Default"
-                               x-state-description="Current: &quot;bg-indigo-800 text-white&quot;, Default: &quot;text-indigo-100 hover:bg-indigo-600&quot;">
-                                <svg class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                                     x-description="Heroicon name: outline/home" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                                </svg>
-                                Dashboard
-                            </a>
-
-                            <a href="#"
-                               class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                               x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:bg-indigo-600&quot;">
-                                <svg class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                                     x-description="Heroicon name: outline/users" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                </svg>
-                                Team
-                            </a>
-
-                            <a href="#"
-                               class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                               x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:bg-indigo-600&quot;">
-                                <svg class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                                     x-description="Heroicon name: outline/folder" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path>
-                                </svg>
-                                Projects
-                            </a>
-
-                            <a href="#"
-                               class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                               x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:bg-indigo-600&quot;">
-                                <svg class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                                     x-description="Heroicon name: outline/calendar" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                Calendar
-                            </a>
-
-                            <a href="#"
-                               class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                               x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:bg-indigo-600&quot;">
-                                <svg class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                                     x-description="Heroicon name: outline/inbox" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
-                                </svg>
-                                Documents
-                            </a>
-
-                            <a href="#"
-                               class="text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                               x-state-description="undefined: &quot;bg-indigo-800 text-white&quot;, undefined: &quot;text-indigo-100 hover:bg-indigo-600&quot;">
-                                <svg class="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300"
-                                     x-description="Heroicon name: outline/chart-bar" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                                </svg>
-                                Reports
-                            </a>
+                            @include('layouts.navigation')
 
                         </nav>
                     </div>
@@ -198,11 +153,25 @@
             </div>
             <div class="md:pl-64 flex flex-col flex-1">
                 <main>
-                    <div class="py-6">
+                    <div class="py-6 px-2">
                         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
                             <h1 class="text-2xl font-semibold text-gray-900">{{ $attributes->get('title') }}</h1>
                         </div>
+
                         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                            @if ($errors->any())
+
+                                <ul class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                                    @foreach ($errors->all() as $error)
+                                        <li>
+                                            <div class="p-2 bg-red-100 items-center text-red-700 leading-none lg:rounded-full flex lg:inline-flex" role="alert">
+                                                <span class="flex rounded-full bg-red-300 uppercase px-2 py-1 text-xs font-bold mr-3">Error</span>
+                                                <span class="font-semibold mr-2 text-left flex-auto">{{ $error }}</span>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                             {{ $slot }}
                         </div>
                     </div>

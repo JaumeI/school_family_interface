@@ -20,6 +20,7 @@ Route::redirect('/', '/login');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', \App\Http\Controllers\Messages\MessageIndexController::class)->name('messages');
+
     //Messages
     Route::get('/message', \App\Http\Controllers\Messages\MessageIndexController::class)->name('messages');
     Route::get('/message/create', \App\Http\Controllers\Messages\MessageCreateController::class)->name('messages.create');
@@ -29,7 +30,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/message/{id}', \App\Http\Controllers\Messages\MessageDestroyController::class)->name('messages.destroy');
 
     //Images
-
     Route::get('/image', \App\Http\Controllers\Images\ImageIndexController::class)->name('images');
     Route::get('/image/create', \App\Http\Controllers\Images\ImageCreateController::class)->name('images.create');
     Route::post('/image', \App\Http\Controllers\Images\ImageStoreController::class)->name('images.store');
@@ -60,6 +60,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/students/{id}/edit', \App\Http\Controllers\Students\StudentEditController::class)->name('students.edit');
     Route::put('/students/{id}', \App\Http\Controllers\Students\StudentUpdateController::class)->name('students.update');
     Route::delete('/students/{id}', \App\Http\Controllers\Students\StudentDestroyController::class)->name('students.destroy');
+
+    //Tags
+    Route::get('/tag', \App\Http\Controllers\Tags\TagIndexController::class)->name('tags');
+    Route::get('/tag/create', \App\Http\Controllers\Tags\TagCreateController::class)->name('tags.create');
+    Route::post('/tag', \App\Http\Controllers\Tags\TagStoreController::class)->name('tags.store');
+    Route::get('/tag/{id}/edit', \App\Http\Controllers\Tags\TagEditController::class)->name('tags.edit');
+    Route::put('/tag/{id}', \App\Http\Controllers\Tags\TagUpdateController::class)->name('tags.update');
+    Route::delete('/tag/{id}', \App\Http\Controllers\Tags\TagDestroyController::class)->name('tags.destroy');
 
 
 

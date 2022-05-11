@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Students;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use function abort_unless;
 use App\Models\Group;
@@ -18,7 +19,8 @@ class StudentCreateController extends Controller
 
         return view('students.edit')
             ->with('student', new Student())
-            ->with('groups',Group::orderBy('name')->get());
+            ->with('groups',Group::orderBy('name')->get())
+            ->with('users',User::orderBy('name')->get());
 
 
     }

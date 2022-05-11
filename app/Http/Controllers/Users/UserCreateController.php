@@ -6,6 +6,8 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Group;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use function abort_unless;
 use App\Models\User;
@@ -21,7 +23,9 @@ class UserCreateController extends Controller
 
         return view('users.edit')
             ->with('user', new User())
-            ->with('permissions', Permission::orderBy('public_name')->get());
+            ->with('permissions', Permission::orderBy('public_name')->get())
+            ->with('groups', Group::orderBy('name')->get())
+            ->with('students', Student::orderBy('name')->get());
     }
 }
 
