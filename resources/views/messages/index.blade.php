@@ -14,7 +14,7 @@
                         <thead class="bg-indigo-200">
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Interlocutor</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Veure</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Conversa</th>
 
                         </tr>
                         </thead>
@@ -23,7 +23,11 @@
                             <tr class={{ $i%2==0? "bg-white" : "bg-indigo-50" }}>
                                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ $user->name }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    <a href="{{ route('messages.edit', ['id' => $user->id]) }}" class="text-indigo-600 hover:text-indigo-900">Veure</a>
+                                    <a href="{{ route('messages.edit', ['id' => $user->id]) }}" class="text-indigo-600 hover:text-indigo-900">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+                                        </svg>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
