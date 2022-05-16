@@ -14,6 +14,7 @@
                                     <thead class="bg-indigo-200">
                                     <tr>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Miniatura</th>
+                                        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Alumnes</th>
                                         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Etiquetes</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Editar</th>
                                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Esborrar</th>
@@ -22,10 +23,15 @@
                                     <tbody class="bg-white">
                                     @foreach($images as $i => $image)
                                     <tr class={{ $i%2==0? "bg-white" : "bg-indigo-50" }}>
-                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6cover"><img class=" object-scale-down w-56" src="{{$image->path.$image->name}}"/></td>
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6cover"><img class=" object-scale-down w-56" src="{{'/'.$image->path.$image->name}}"/></td>
+                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            @foreach($image->students as $student)
+                                                <div class="bg-indigo-600 text-white border-2 rounded-md float-left p-1">{{ $student->name }}</div>
+                                            @endforeach
+                                        </td>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                             @foreach($image->tags as $tag)
-                                            <div class="bg-indigo-600 text-white border-r-2 rounded-md float-left p-1">{{ '#'.$tag->name.' ' }}</div>
+                                            <div class="bg-indigo-600 text-white border-2 rounded-md float-left p-1">{{ '#'.$tag->name.' ' }}</div>
                                             @endforeach
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -37,7 +43,7 @@
                                             </a>
                                         </td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                            <x-delete target="{{$image->name}}" route="{{ route('groups.destroy', ['id' => $image->id]) }}"/>
+                                            <x-delete target="{{$image->name}}" route="{{ route('images.destroy', ['id' => $image->id]) }}"/>
                                         </td>
                                     </tr>
                                     @endforeach
