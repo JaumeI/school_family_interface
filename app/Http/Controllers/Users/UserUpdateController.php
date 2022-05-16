@@ -13,7 +13,7 @@ class UserUpdateController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('manage_users'), 403, 'You cannot perform this action');
 
-        //return view('users.index')->with('users', User::orderBy('name')->get());
+        return redirect(route('users'));
     }
 
 }

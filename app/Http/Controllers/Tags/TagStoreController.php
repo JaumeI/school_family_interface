@@ -38,7 +38,8 @@ class TagStoreController extends Controller
             $tag->description = $request->description;
         }
         $tag->save();
-        return view('tags.index')->with('tags',Tag::orderBy('name')->get());
+
+        return redirect(route('tags'));
     }
 
 }

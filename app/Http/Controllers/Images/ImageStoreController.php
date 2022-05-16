@@ -49,8 +49,6 @@ class ImageStoreController extends Controller
         ksort($available_students);
 
         abort_unless($request->user()->hasPermissionTo('upload_images'), 403, 'You cannot perform this action');
-        return view('images.create')
-            ->with('tags',Tag::orderBY('name')->get())
-            ->with('students', $available_students);
+        return(redirect(route('images')));
     }
 }

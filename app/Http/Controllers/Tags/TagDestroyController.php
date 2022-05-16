@@ -4,17 +4,19 @@ namespace App\Http\Controllers\Tags;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Group;
+use App\Models\Tag;
 use function abort_unless;
 
 class TagDestroyController extends Controller
 {
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $id)
     {
         abort_unless($request->user()->hasPermissionTo('manage_tags'), 403, 'You cannot perform this action');
-        echo "delete!";
-        //return view('tags.index')->with(Tag::orderBy('name'));
+
+        Tag::find($id)->delete();
+
+        return redirect(route('tags'));
     }
 
 }

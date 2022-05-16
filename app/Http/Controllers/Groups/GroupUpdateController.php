@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Groups;
 
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use Illuminate\Http\Request;
 use function abort_unless;
 
@@ -13,7 +14,7 @@ class GroupUpdateController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('manage_groups'), 403, 'You cannot perform this action');
 
-        //return view('users.index')->with('users', User::orderBy('name')->get());
+        return redirect (route('groups'));
     }
 
 }

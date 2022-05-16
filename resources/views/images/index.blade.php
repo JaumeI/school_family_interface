@@ -4,8 +4,8 @@
 
             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 ">
                 <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg p-6 bg-white">
-
-                    <!--tests place-->
+                    @if(sizeof($tags)>0)
+                    <!--Tags Dropwdown start-->
                     <script>
                         function dropdown() {
                             return {
@@ -176,10 +176,10 @@
                         </div>
                     </div>
 
+                    @endif
+                    <!--end of tags dropdown place-->
 
-                    <!--end of tests place-->
-
-
+                    <!-- Modal gallery -->
                     <div x-data="{ imgModal : false, imgModalSrc : '', imgModalDesc : '' }">
                         <template
                             @img-modal.window="imgModal = true; imgModalSrc = $event.detail.imgModalSrc; imgModalDesc = $event.detail.imgModalDesc;"
@@ -203,6 +203,7 @@
                             </div>
                         </template>
                     </div>
+                        <!-- End of Modal gallery -->
 
                     <div x-data="{}">
 

@@ -69,15 +69,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/tag/{id}', \App\Http\Controllers\Tags\TagUpdateController::class)->name('tags.update');
     Route::delete('/tag/{id}', \App\Http\Controllers\Tags\TagDestroyController::class)->name('tags.destroy');
 
-
-
-
-    // TODO: Resta de rutes que estan protegides per autenticació
-    //Route::get('/upload_images', \App\Http\Controllers\DashboardController::class)->name('upload_images');
-    //Route::get('/see_images', \App\Http\Controllers\DashboardController::class)->name('see_images');
-
-
-
 });
 
 require __DIR__.'/auth.php';

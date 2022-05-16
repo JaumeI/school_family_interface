@@ -13,7 +13,7 @@ class MessageUpdateController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('messages'), 403, 'You cannot perform this action');
 
-        return view('messages.index')->with('message', Message::orderBy('sent_date')->get());
+        return redirect (route('messages'));
     }
 
 }

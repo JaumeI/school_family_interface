@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -70,7 +69,7 @@ class UserStoreController extends Controller
 
         $user->save();
 
-        return view('users.index')->with('users', User::orderBy('name')->get());
+        return redirect(route('users'));
     }
 
 }

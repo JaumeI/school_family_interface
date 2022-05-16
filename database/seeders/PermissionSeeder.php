@@ -45,6 +45,10 @@ class PermissionSeeder extends Seeder
             'public_name' => 'Veure Imatges',
             ]);
         Permission::create([
+            'name' =>  'edit_images',
+            'public_name' => 'Editar Imatges',
+        ]);
+        Permission::create([
             'name' =>  'messages',
             'public_name' => 'Missatges',
             ]);

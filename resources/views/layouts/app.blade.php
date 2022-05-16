@@ -25,6 +25,16 @@
                 }
             }
         }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.confirm-delete').forEach(anchor => {
+                anchor.addEventListener('click', event => {
+                    if (confirm(`Segur que vols esborrar "${anchor.getAttribute('data-target')}"?`)) {
+                        anchor.querySelector('form').submit()
+                    }
+                })
+            })
+        })
+    </script>
 
     </script>
 

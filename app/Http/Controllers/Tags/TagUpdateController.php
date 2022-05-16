@@ -13,7 +13,7 @@ class TagUpdateController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('manage_tags'), 403, 'You cannot perform this action');
 
-        return view('tags.index')->with(Tag::orderBy('name'));
+        return redirect(route('tags'));
     }
 
 }

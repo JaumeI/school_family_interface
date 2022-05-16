@@ -10,13 +10,13 @@ use function abort_unless;
 class GroupDestroyController extends Controller
 {
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request,$id)
     {
         abort_unless($request->user()->hasPermissionTo('manage_groups'), 403, 'You cannot perform this action');
 
-        echo 'destroy '.$request->id;
+        Group::find($id)->delete();
 
-        return view('groups.index')->with('groups', Group::orderBy('name')->get());
+        return redirect (route('groups'));
     }
 
 }

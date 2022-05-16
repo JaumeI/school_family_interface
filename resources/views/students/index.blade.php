@@ -20,11 +20,9 @@
                         <thead class="bg-indigo-200">
                         <tr>
                             <th scope="col"
-                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Nom
-                            </th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Editar
-                            </th>
-
+                                class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Nom</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Editar</th>
+                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Esborrar</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white">
@@ -39,6 +37,9 @@
                                             <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
                                         </svg>
                                     </a>
+                                </td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                    <x-delete target="{{$student->name}}" route="{{ route('students.destroy', ['id' => $student->id]) }}"/>
                                 </td>
                             </tr>
                         @endforeach

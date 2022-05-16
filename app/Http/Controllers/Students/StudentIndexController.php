@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Students;
 
 use App\Http\Controllers\Controller;
-use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Models\Student;
 use function abort_unless;
-use function view;
 
 class StudentIndexController extends Controller
 {

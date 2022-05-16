@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Messages;
 
 use App\Http\Controllers\Controller;
-use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use function abort_unless;

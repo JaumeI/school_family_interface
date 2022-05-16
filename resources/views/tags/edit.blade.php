@@ -1,4 +1,4 @@
-<x-app-layout title="Grup">
+<x-app-layout title="{{isset($tag->name)?'Editar Etiqueta' : 'Afegir Etiqueta'}}">
     <div class="py-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg">

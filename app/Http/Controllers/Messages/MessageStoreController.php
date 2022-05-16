@@ -4,14 +4,8 @@ namespace App\Http\Controllers\Messages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
-use App\Models\Permission;
-use App\Models\Group;
-use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
 use function abort_unless;
 
 class MessageStoreController extends Controller
@@ -27,9 +21,8 @@ class MessageStoreController extends Controller
 
         $otheruser = User::where('id','=', $request->otherid)->first();
 
-        $clean_message = strip_tags($request->message);
         Message::create([
-            'content' => $clean_message,
+            'content' => $request->message,
             'user_from' => $request->user()->id,
             'user_to' => $otheruser->id,
         ]);
