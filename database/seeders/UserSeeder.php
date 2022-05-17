@@ -30,113 +30,48 @@ class UserSeeder extends Seeder
         ]);
 
         //Add all permissions
-        $permissions = array();
-        foreach (Permission::all() as $permission)
-        {
-            $permissions[] = $permission->id;
-        }
-        $admin->permissions()->attach($permissions);
+        $admin->permissions()->attach(Permission::all('id'));
 
         //If this is a demo, we create some example config
         if(strtolower(env('APP_DEMO', 'true'))==true){
-            $groups = array();
-            //admin has access to all groups
-            foreach (Group::all() as $group)
-            {
-                $groups[] = $group->id;
-            }
-            $admin->groups()->attach($groups);
 
-            $students = array();
-            //admin has access to all  students
-            foreach (Student::all() as $student)
-            {
-                $students[] = $student->id;
-            }
-            $admin->students()->attach($students);
+            //We add all groups and students to the admin
+            $admin->groups()->attach(Group::all('id'));
+            $admin->students()->attach(Student::all('id'));
 
-            //Create demo tutor users
-            // Tutor1
-            $tutor1 = User::create([
-                'name' =>  'tutor1',
-                'email' => 'tutor1@mail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'), // password
-                'remember_token' => Str::random(10),
-            ]);
 
-            $groups = array();
-            $g1 = Group::inRandomOrder()->first()->id;
-            do
-            {
-                $g2 = Group::inRandomOrder()->first()->id;
-            }while($g2==$g1);
-            $groups[] = $g1;
-            $groups[] = $g2;
-            $tutor1->groups()->attach($groups);
-
-            // Tutor 2
-            $tutor2 = User::create([
-                'name' =>  'tutor2',
-                'email' => 'tutor2@mail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'), // password
-                'remember_token' => Str::random(10),
-            ]);
-            $groups = array();
-            $g1 = Group::inRandomOrder()->first()->id;
-            do
-            {
-                $g2 = Group::inRandomOrder()->first()->id;
-            }while($g2==$g1);
-            $groups[] = $g1;
-            $groups[] = $g2;
-            $tutor2->groups()->attach($groups);
 
             //Create demo family users
-            $family1 = User::create([
-                'name' =>  'family1',
-                'email' => 'family1@mail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'), // password
-                'remember_token' => Str::random(10),
-            ]);
-            // Family1 has two students
-            $f1_students = array();
-
-            $s1 = Student::inRandomOrder()->first()->id;
-            do
+            for($i=1;$i<=5;$i++)
             {
-                $s2 = Student::inRandomOrder()->first()->id;
-            }while($s2==$s1);
-            $f1students[] = $s1;
-            $f1students[] = $s2;
-            $family1->students()->attach($f1_students);
+                $family = User::create([
+                    'name' =>  'family'.$i,
+                    'email' => 'family'.$i.'@mail.com',
+                    'email_verified_at' => now(),
+                    'password' => Hash::make('password'), // password
+                    'remember_token' => Str::random(10),
+                ]);
+                $family->students()->attach(Student::inRandomOrder()->limit(rand(1,3))->get('id'));
+                $family->permissions()->attach(Permission::where('code', 'see_images')->orWhere('code', 'messages')->get('id'));
+            }
 
-
-            $family2 = User::create([
-                'name' =>  'family2',
-                'email' => 'family2@mail.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'), // password
-                'remember_token' => Str::random(10),
-            ]);
-            //Family 2 has 1 student
-            $family2->students()->attach(Student::inRandomOrder()->first()->id);
-
-            //Permissions for demo users
-            $permissions = array();
-            $permissions[] = Permission::where('name', 'see_images')->first()->id;
-            $permissions[] = Permission::where('name', 'messages')->first()->id;
-            $family1->permissions()->attach($permissions);
-            $family2->permissions()->attach($permissions);
-
-            //Tutors have same permissions as families and:
-            $permissions[] = Permission::where('name', 'manage_tags')->first()->id;
-            $permissions[] = Permission::where('name', 'upload_images')->first()->id;
-            $tutor1->permissions()->attach($permissions);
-            $tutor2->permissions()->attach($permissions);
-
+            //Create demo tutor users
+            for($i=1;$i<=5;$i++)
+            {
+                $tutor = User::create([
+                    'name' =>  'tutor'.$i,
+                    'email' => 'tutor'.$i.'@mail.com',
+                    'email_verified_at' => now(),
+                    'password' => Hash::make('password'), // password
+                    'remember_token' => Str::random(10),
+                ]);
+                $tutor->groups()->attach(Group::inRandomOrder()->limit(rand(1,4))->get('id'));
+                $tutor->permissions()->attach(Permission::where('code', 'see_images')
+                    ->orWhere('code', 'messages')
+                    ->orWhere('code', 'manage_tags')
+                    ->orWhere('code', 'upload_images')
+                    ->get('id'));
+            }
         }
 
 

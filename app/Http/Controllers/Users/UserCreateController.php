@@ -23,7 +23,7 @@ class UserCreateController extends Controller
 
         return view('users.edit')
             ->with('user', new User())
-            ->with('permissions', Permission::orderBy('public_name')->get())
+            ->with('permissions', Permission::orderBy('name')->get())
             ->with('groups', Group::orderBy('name')->get())
             ->with('students', Student::orderBy('name')->get());
     }

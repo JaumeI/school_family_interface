@@ -122,6 +122,6 @@ class User extends Authenticatable
     {
         $this->loadMissing('permissions');
 
-        return $this->permissions->firstWhere('name', $permission) !== null;
+        return $this->permissions->firstWhere('code', $permission) !== null;
     }
 }

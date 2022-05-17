@@ -17,7 +17,7 @@ class UserEditController extends Controller
         $user = User::where('id', $id)->first();
         return view('users.edit')
             ->with('user', $user)
-            ->with('permissions', Permission::whereNotIn('id',$user->permissions()->pluck('id')->toArray())->orderBy('public_name')->get())
+            ->with('permissions', Permission::whereNotIn('id',$user->permissions()->pluck('id')->toArray())->orderBy('name')->get())
             ->with('groups', Group::whereNotIn('id',$user->groups()->pluck('id')->toArray())->orderBy('name')->get())
             ->with('students', Student::whereNotIn('id',$user->students()->pluck('id')->toArray())->orderBy('name')->get());
     }

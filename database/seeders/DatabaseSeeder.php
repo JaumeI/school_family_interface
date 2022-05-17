@@ -19,18 +19,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-
-
         $this->call([
             PermissionSeeder::class,
             GroupSeeder::class,
             StudentSeeder::class,
             TagSeeder::class,
-            ImageSeeder::class,
             UserSeeder::class,
             GroupStudentSeeder::class,
+            ImageSeeder::class,
             MessageSeeder::class,
             ]);
     }

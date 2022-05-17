@@ -15,7 +15,7 @@ class MessageStoreController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('messages'), 403, 'You cannot perform this action');
         $request->validate([
-            'content' => ['required', 'string'],
+            'message' => ['required', 'string'],
 
         ]);
 
