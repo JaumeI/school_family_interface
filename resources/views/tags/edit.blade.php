@@ -5,7 +5,7 @@
 
                 <div class="p-6 bg-white border-b border-gray-100">
 
-                    <form method="POST" action={{ route('tags.store')}}>
+                    <form method="POST" action={{ route('tags.store') }}>
                         @csrf
                         <input type="hidden" id="id" name="id" value="{{$tag->id}}">
 

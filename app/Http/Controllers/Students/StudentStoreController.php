@@ -39,7 +39,8 @@ class StudentStoreController extends Controller
 
         $student->save();
 
-        return view('students.index')->with('students', Student::orderBy('name')->get());
+        //return view('students.index')->with('students', Student::orderBy('name')->get());
+        return redirect(route('students'));
     }
 
 }

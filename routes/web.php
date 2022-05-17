@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
 Route::redirect('/', '/login');
 
 Route::group(['middleware' => 'auth'], function () {
@@ -62,12 +58,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/students/{id}', \App\Http\Controllers\Students\StudentDestroyController::class)->name('students.destroy');
 
     //Tags
-    Route::get('/tag', \App\Http\Controllers\Tags\TagIndexController::class)->name('tags');
-    Route::get('/tag/create', \App\Http\Controllers\Tags\TagCreateController::class)->name('tags.create');
-    Route::post('/tag', \App\Http\Controllers\Tags\TagStoreController::class)->name('tags.store');
-    Route::get('/tag/{id}/edit', \App\Http\Controllers\Tags\TagEditController::class)->name('tags.edit');
-    Route::put('/tag/{id}', \App\Http\Controllers\Tags\TagUpdateController::class)->name('tags.update');
-    Route::delete('/tag/{id}', \App\Http\Controllers\Tags\TagDestroyController::class)->name('tags.destroy');
+    Route::get('/tags', \App\Http\Controllers\Tags\TagIndexController::class)->name('tags');
+    Route::get('/tags/create', \App\Http\Controllers\Tags\TagCreateController::class)->name('tags.create');
+    Route::post('/tags', \App\Http\Controllers\Tags\TagStoreController::class)->name('tags.store');
+    Route::get('/tags/{id}/edit', \App\Http\Controllers\Tags\TagEditController::class)->name('tags.edit');
+    Route::put('/tags/{id}', \App\Http\Controllers\Tags\TagUpdateController::class)->name('tags.update');
+    Route::delete('/tags/{id}', \App\Http\Controllers\Tags\TagDestroyController::class)->name('tags.destroy');
 
 });
 
