@@ -31,8 +31,8 @@
                     <input type="hidden" id="otherid" name="otherid" value="{{$otherUser->id}}">
 
                     <div class="mb-4">
-                        <label for="message" class="block text-gray-700 text-sm font-bold mb-2">Nou missatge</label>
-                        <textarea id="message" name="message" placeholder="Escriu un missatge" rows="4"
+                        <label for="content" class="block text-gray-700 text-sm font-bold mb-2">Nou missatge</label>
+                        <textarea id="content" name="content" placeholder="Escriu un missatge" rows="4"
                                class="from-control block w-full text-base resize-none shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
                     </div>
                     <div class="mb-4">

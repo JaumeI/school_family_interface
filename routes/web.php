@@ -18,20 +18,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', \App\Http\Controllers\Messages\MessageIndexController::class)->name('messages');
 
     //Messages
-    Route::get('/message', \App\Http\Controllers\Messages\MessageIndexController::class)->name('messages');
-    Route::get('/message/create', \App\Http\Controllers\Messages\MessageCreateController::class)->name('messages.create');
-    Route::post('/message', \App\Http\Controllers\Messages\MessageStoreController::class)->name('messages.store');
-    Route::get('/message/{id}/edit', \App\Http\Controllers\Messages\MessageEditController::class)->name('messages.edit');
-    Route::put('/message/{id}', \App\Http\Controllers\Messages\MessageUpdateController::class)->name('messages.update');
-    Route::delete('/message/{id}', \App\Http\Controllers\Messages\MessageDestroyController::class)->name('messages.destroy');
+    Route::get('/messages', \App\Http\Controllers\Messages\MessageIndexController::class)->name('messages');
+    Route::get('/messages/create', \App\Http\Controllers\Messages\MessageCreateController::class)->name('messages.create');
+    Route::post('/messages', \App\Http\Controllers\Messages\MessageStoreController::class)->name('messages.store');
+    Route::get('/messages/{id}/edit', \App\Http\Controllers\Messages\MessageEditController::class)->name('messages.edit');
+    Route::put('/messages/{id}', \App\Http\Controllers\Messages\MessageUpdateController::class)->name('messages.update');
+    Route::delete('/messages/{id}', \App\Http\Controllers\Messages\MessageDestroyController::class)->name('messages.destroy');
 
     //Images
-    Route::get('/image', \App\Http\Controllers\Images\ImageIndexController::class)->name('images');
-    Route::get('/image/create', \App\Http\Controllers\Images\ImageCreateController::class)->name('images.create');
-    Route::post('/image', \App\Http\Controllers\Images\ImageStoreController::class)->name('images.store');
-    Route::get('/image/{id}/edit', \App\Http\Controllers\Images\ImageEditController::class)->name('images.edit');
-    Route::put('/image/{id}', \App\Http\Controllers\Images\ImageUpdateController::class)->name('images.update');
-    Route::delete('/image/{id}', \App\Http\Controllers\Images\ImageDestroyController::class)->name('images.destroy');
+    Route::get('/images', \App\Http\Controllers\Images\ImageIndexController::class)->name('images');
+    Route::get('/images/create', \App\Http\Controllers\Images\ImageCreateController::class)->name('images.create');
+    Route::post('/images', \App\Http\Controllers\Images\ImageStoreController::class)->name('images.store');
+    Route::get('/images/{id}/edit', \App\Http\Controllers\Images\ImageEditController::class)->name('images.edit');
+    Route::put('/images/{id}', \App\Http\Controllers\Images\ImageUpdateController::class)->name('images.update');
+    Route::delete('/images/{id}', \App\Http\Controllers\Images\ImageDestroyController::class)->name('images.destroy');
 
     //Users
     Route::get('/users', \App\Http\Controllers\Users\UserIndexController::class)->name('users');

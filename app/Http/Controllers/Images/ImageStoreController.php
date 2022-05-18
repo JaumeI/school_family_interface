@@ -24,6 +24,7 @@ class ImageStoreController extends Controller
         }
         else
         {
+
             abort_unless($request->user()->hasPermissionTo('upload_images'), 403, 'You cannot perform this action');
             //if it's a new image
             $validatedData = $request->validate([
@@ -43,23 +44,8 @@ class ImageStoreController extends Controller
         }
 
         $image->tags()->attach($request->destination_tags);
+
         $image->students()->attach($request->destination_students);
-
-        /*$available_groups = $request->user()->groups()->get();
-        $available_students = Array();
-        foreach ($available_groups as $group)
-        {
-            foreach($group->students()->orderBy('name')->get() as $student)
-            {
-                if(!isset($available_students[$student->id]))
-                {
-                    $available_students[$student->id] = $student;
-                }
-            }
-        }
-        //order the students
-        ksort($available_students);*/
-
 
         return(redirect(route('images')));
     }

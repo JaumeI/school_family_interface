@@ -16,7 +16,7 @@ class MessageCreateController extends Controller
     {
         abort_unless($request->user()->hasPermissionTo('messages'), 403, 'You cannot perform this action');
 
-        // Let's filter all users we are alrerady messaging, or ourselves
+        // Let's filter all users we are already messaging, or ourselves
         $messages =$request->user()->messages();
         $ids[]=$request->user()->id;
         foreach ($messages as $message)
