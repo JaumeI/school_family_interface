@@ -40,7 +40,7 @@ class MessagesTest extends TestCase
             ->assertSee($userDest->name);
     }
 
-    public function test_can_store(): void
+    public function test_can_store_new_message(): void
     {
         $user = $this->createUserWithPermissions(permissions: ['messages']);
         $userDest = User::factory()->create();
@@ -48,9 +48,8 @@ class MessagesTest extends TestCase
         $this->actingAs($user)
             ->post(route('messages.store'), [
                 'content' => 'Lorem Ipsum',
-                'user' => $user,
-                'otheruser' => $userDest,
-            ]);
+                'otherid' => $userDest->id,
+            ])->assertRedirect();
 
         $this->assertDatabaseCount('messages', 1);
 

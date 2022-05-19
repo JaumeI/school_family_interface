@@ -13,24 +13,21 @@ class MessageStoreController extends Controller
 
     public function __invoke(Request $request)
     {
-        abort_unless($request->user()->hasPermissionTo('messages'), 403, 'You cannot perform this action');
+        abort_unless(auth()->user()->hasPermissionTo('messages'), 403, 'You cannot perform this action');
         $request->validate([
             'content' => ['required', 'string'],
-
+            'otherid' => ['required', 'int']
         ]);
 
-        $otheruser = User::where('id','=', $request->otherid)->first();
+        $otheruser = User::find($request->otherid);
 
         Message::create([
-            'content' => $request->content,
+            'content' => $request->input('content'),
             'user_from' => $request->user()->id,
             'user_to' => $otheruser->id,
         ]);
 
-        return view('messages.edit')
-            ->with('messages',$request->user()->messagesWith($otheruser->id))
-            ->with('otherUser',$otheruser)
-            ->with('myUser',$request->user());
+        return redirect()->route('messages.edit', $otheruser->id);
     }
 
 }

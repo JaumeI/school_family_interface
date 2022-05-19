@@ -24,4 +24,14 @@ class Image extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function delete()
+    {
+        @rmdir(public_path($this->path.$this->name));
+
+        $this->tags()->detach();
+        $this->students()->detach();
+
+        return parent::delete();
+    }
 }

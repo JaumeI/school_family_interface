@@ -6,8 +6,9 @@ use App\Models\Group;
 use App\Models\Image;
 use App\Models\Student;
 use App\Models\Tag;
-use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Storage;
 use Tests\TestCase;
 
 class ImagesTest extends TestCase
@@ -63,23 +64,25 @@ class ImagesTest extends TestCase
 
     public function test_can_store_image(): void
     {
+        //Storage::fake('public');
+        //Storage::disk('public')->makeDirectory('images/studentimages');
+
         $user = $this->createUserWithPermissions(permissions: ['upload_images', 'edit_images']);
 
         $this->actingAs($user)
             ->post(route('images.store'), [
                 'id' => 1,
-                'image' => \Faker\Provider\Image(),
-                'path' => 'cami',
-                'name' => 'coses.jpg',
-                'uploader_id' => 99
-            ])->dd()
+                'image' => UploadedFile::fake()->image('alumnes.jpg'),
+            ])
             ->assertRedirect(route('images'));
 
-       /* $this->assertDatabaseCount('images', 1);
+        //$this->assertCount(1, Storage::disk('public')->allFiles('images/studentimages/'.now()->format('Ym')));
+
+       $this->assertDatabaseCount('images', 1);
 
         $this->assertDatabaseHas('images', [
-            'name' => 'coses.jpg'
-        ]);*/
+            'path' => 'storage/images/studentimages/'.now()->format('Ym').'/'
+        ]);
     }
 
     // edit
@@ -109,11 +112,10 @@ class ImagesTest extends TestCase
             ->post(route('images.store'),[
                 'id' => $image->id,
                 'destination_students' => $student2->id,
-                'destination_tags', $tag2->id,
+                'destination_tags' => $tag2->id,
             ])
             ->assertRedirect(route('images'));
 
-        $this->assertDatabaseCount('images', 1);
 
         $this->assertDatabaseHas('image_student', [
             'image_id' => $image->id,
@@ -125,11 +127,21 @@ class ImagesTest extends TestCase
             'tag_id' => $tag2->id,
         ]);
 
+        $this->assertdatabaseMissing('image_student', [
+            'image_id' => $image->id,
+            'student_id' => $student->id,
+        ]);
+
+       $this->assertdatabaseMissing('image_tag', [
+            'image_id' => $image->id,
+            'tag_id' => $tag->id,
+        ]);
+
     }
 
     public function test_can_delete_image(): void
     {
-        $user = $this->createUserWithPermissions(permissions: ['upload_images']);
+        $user = $this->createUserWithPermissions(permissions: ['edit_images']);
 
         $tag = Tag::create(['name' => 'Primer tag']);
         Tag::create(['name' => 'Segon tag']);
@@ -139,13 +151,10 @@ class ImagesTest extends TestCase
         $tag->images()->attach($image->id);
 
         $this->actingAs($user)
-            ->delete(route('tags.destroy', $tag))
-            ->assertRedirect(route('tags'));
+            ->delete(route('images.destroy', $image))
+            ->assertRedirect(route('images'));
 
-        $this->assertDatabaseCount('tags', 1);
+        $this->assertDatabaseCount('images', 0);
 
-        $this->assertDatabaseMissing('tags', ['name' => 'Primer tag']);
-        $this->assertDatabaseMissing('image_tag', ['image_id' => $image->id, 'tag_id' => $tag->id]);
-        $this->assertdatabaseHas('tags', ['name' => 'Segon tag']);
     }
 }

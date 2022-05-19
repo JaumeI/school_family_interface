@@ -12,8 +12,10 @@ class ImageDestroyController extends Controller
 
     public function __invoke(Request $request, $id)
     {
-        abort_unless($request->user()->hasPermissionTo('edit_images'), 403, 'You cannot perform this action');
+        abort_unless(auth()->user()->hasPermissionTo('edit_images'), 403, 'You cannot perform this action');
+
         Image::find($id)->delete();
+
         return redirect(route('images'));
     }
 
