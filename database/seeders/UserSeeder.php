@@ -48,7 +48,7 @@ class UserSeeder extends Seeder
                     'name' =>  'family'.$i,
                     'email' => 'family'.$i.'@mail.com',
                     'email_verified_at' => now(),
-                    'password' => Hash::make('password'), // password
+                    'password' => Hash::make('p4ssword'), // password
                     'remember_token' => Str::random(10),
                 ]);
                 $family->students()->attach(Student::inRandomOrder()->limit(rand(1,3))->get('id'));
